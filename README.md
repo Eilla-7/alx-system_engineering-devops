@@ -1,1 +1,1 @@
-README hh
+this project is for variables and expansions
