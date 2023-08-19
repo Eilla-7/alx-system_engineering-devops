@@ -1,2 +1,2 @@
 #!/bin/bash
-pwd -LP\n
+echo pwd -LP\n
