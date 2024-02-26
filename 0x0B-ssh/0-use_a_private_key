@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Bash scripts that uses ssh to connect to the server using private key
+ssh ubuntu@35.153.193.94 -i ~/ .ssh/school
