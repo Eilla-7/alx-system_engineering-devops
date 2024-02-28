@@ -1,0 +1,55 @@
+# #!/usr/bin/env bash
+
+# # Install nginx server
+# apt-get update
+# apt-get -y install nginx
+
+
+# echo  "Hello World!" > /var/www/html/index.html
+
+# cat > /etc/nginx/sites-available/default <<EOF
+# server {
+#     listen 80;
+#     listen [::]:80;
+#     root /var/www/html;
+#     index index.html index.htm index.nginx-debain.html;
+
+#     location /redirect_me {
+#         return 301 http://youtube.com/;
+#     }
+# }
+# EOF
+
+# # Restart nginx to apply the changes
+# service nginx restart
+
+
+#!/usr/bin/env bash
+
+# Install nginx server
+apt-get update
+apt-get -y install nginx
+
+# Create the index.html file
+echo "Hello World!" > /var/www/html/index.html
+
+# Configure Nginx redirection
+cat > /etc/nginx/sites-available/default <<EOF
+server {
+    listen 80;
+    listen [::]:80;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    location /redirect_me {
+        return 301 http://youtube.com/;
+    }
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart nginx to apply the changes
+service nginx restart
