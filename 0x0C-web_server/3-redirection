@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
+# Script that configures a new Ubuntu machine to respect above requirements
 
-# Update package repositories and install Nginx
-apt-get update
-apt-get install -y nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Create index.html with "Hello World!"
-echo "Hello World!" | tee /var/www/html/index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com permanent;"
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
-# Configure redirect for /redirect_me
-string_for_replacement="server_name _;\\n\\trewrite ^\\/redirect_me https:\\/\\/www.youtube.com permanent;"
-sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
-
-# Restart Nginx to apply changes
-service nginx restart
+sudo service nginx restart
