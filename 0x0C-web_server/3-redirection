@@ -41,7 +41,6 @@ server {
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
 
-
     location /redirect_me {
         return 301 http://youtube.com/;
     }
