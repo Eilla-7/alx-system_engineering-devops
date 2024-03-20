@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 #This Script runs nginx through nginx user
 
-#Update nginx configuration
-sed -i 's/user\s*nginx;/user nginx;/g' /etc/nginx/nginx.conf
+chmod 644 /etc/nginx.conf
 
-#Change ownership of nginx directories to nginx user
-chown -R nginx:nginx /var/lib/nginx /var/log/nginx
+# Replace the 'user' directive in /etc/nginx.conf with 'user nginx'
+sed -Ei 's/\s*#?\s*user nginx:/' /etc/nginx.conf
 
-#Modify nginx default configuration to listen on port 8080
-sed -i 's/listen\s*80;/listen 8080;/g' /etc/nginx/sites-available/default
+# Modify the default Nginx configuration to listen on port 8080 instead of 80
+sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
 
-#Restart nginx service to apply changes
-service nginx restart
 
-#Verify nginx is running as nginx user and listening on port 8080
-ps -ef | grep nginx
-netstat -tuln | grep ':8080'
+pkill apache2
+
+# Switch to the 'nginx' user and restart the Nginx service
+su nginx -s/bin/bash -c ' service nginx restart'
 
