@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #This Script runs nginx through nginx user
 
-chmod 644 /etc/nginx.conf
+chmod 644 /etc/nginx/nginx.conf
 
 # Replace the 'user' directive in /etc/nginx.conf with 'user nginx'
-sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx.conf
+sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
 
 # Modify the default Nginx configuration to listen on port 8080 instead of 80
 sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
